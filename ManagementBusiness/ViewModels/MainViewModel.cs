@@ -1,71 +1,128 @@
-using ManagementBusiness.Models;
+using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
+using ManagementBusiness.Views;
 
 namespace ManagementBusiness.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private string _title = "Sistema de Gestión Empresarial";
-        private string _statusMessage = "Listo";
-        private bool _isBusy;
+        private object _currentView;
+        private string _currentPage;
+        private string _currentPageTitle;
+        private string _currentPageSubtitle;
 
-        public string Title
+        public object CurrentView
         {
-            get => _title;
-            set => SetProperty(ref _title, value);
+            get => _currentView;
+            set => SetProperty(ref _currentView, value);
         }
 
-        public string StatusMessage
+        public string CurrentPage
         {
-            get => _statusMessage;
-            set => SetProperty(ref _statusMessage, value);
+            get => _currentPage;
+            set => SetProperty(ref _currentPage, value);
         }
 
-        public bool IsBusy
+        public string CurrentPageTitle
         {
-            get => _isBusy;
-            set => SetProperty(ref _isBusy, value);
+            get => _currentPageTitle;
+            set => SetProperty(ref _currentPageTitle, value);
         }
 
-        public ICommand RefreshCommand { get; }
-        public ICommand SettingsCommand { get; }
-        public ICommand HelpCommand { get; }
+        public string CurrentPageSubtitle
+        {
+            get => _currentPageSubtitle;
+            set => SetProperty(ref _currentPageSubtitle, value);
+        }
+
+        public ICommand NavigateCommand { get; }
+        public ICommand LogoutCommand { get; }
 
         public MainViewModel()
         {
-            RefreshCommand = new RelayCommand(ExecuteRefresh);
-            SettingsCommand = new RelayCommand(ExecuteSettings);
-            HelpCommand = new RelayCommand(ExecuteHelp);
+            NavigateCommand = new RelayCommand(Navigate);
+            LogoutCommand = new RelayCommand(Logout);
+
+            // Navegar a la página de inicio por defecto
+            NavigateToHome();
         }
 
-        private void ExecuteRefresh(object? parameter)
+        private void Navigate(object? parameter)
         {
-            StatusMessage = "Actualizando...";
-            IsBusy = true;
+            if (parameter is not string pageName) return;
             
-            // Simular operación asíncrona
-            Task.Delay(1000).ContinueWith(_ =>
+            CurrentPage = pageName;
+            
+            switch (pageName)
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    StatusMessage = "Actualizado correctamente";
-                    IsBusy = false;
-                });
-            });
+                case "Home":
+                    CurrentView = new HomeView();
+                    CurrentPageTitle = "Panel de Control";
+                    CurrentPageSubtitle = "Bienvenido al sistema de gestión empresarial";
+                    break;
+                case "Customers":
+                    CurrentView = new CustomersView();
+                    CurrentPageTitle = "Gestión de Clientes";
+                    CurrentPageSubtitle = "Administra la información de tus clientes";
+                    break;
+                case "Products":
+                    CurrentView = new ProductsView();
+                    CurrentPageTitle = "Gestión de Productos";
+                    CurrentPageSubtitle = "Controla tu inventario y catálogo de productos";
+                    break;
+                case "Orders":
+                    CurrentView = new OrdersView();
+                    CurrentPageTitle = "Gestión de Pedidos";
+                    CurrentPageSubtitle = "Seguimiento y administración de pedidos";
+                    break;
+                case "Transactions":
+                    CurrentView = new TransactionsView();
+                    CurrentPageTitle = "Transacciones";
+                    CurrentPageSubtitle = "Historial y análisis de transacciones";
+                    break;
+                case "Shipments":
+                    CurrentView = new ShipmentsView();
+                    CurrentPageTitle = "Gestión de Envíos";
+                    CurrentPageSubtitle = "Control de logística y entregas";
+                    break;
+                case "Settings":
+                    CurrentView = new SettingsView();
+                    CurrentPageTitle = "Configuración";
+                    CurrentPageSubtitle = "Personaliza tu experiencia";
+                    break;
+                default:
+                    CurrentView = new HomeView();
+                    CurrentPageTitle = "Panel de Control";
+                    CurrentPageSubtitle = "Bienvenido al sistema de gestión empresarial";
+                    break;
+            }
         }
 
-        private void ExecuteSettings(object? parameter)
+        private void NavigateToHome()
         {
-            StatusMessage = "Abriendo configuración...";
-            // Aquí se abriría la ventana de configuración
+            CurrentPage = "Home";
+            CurrentView = new HomeView();
+            CurrentPageTitle = "Panel de Control";
+            CurrentPageSubtitle = "Bienvenido al sistema de gestión empresarial";
         }
 
-        private void ExecuteHelp(object? parameter)
+        private void Logout(object? parameter)
         {
-            StatusMessage = "Abriendo ayuda...";
-            // Aquí se abriría la ventana de ayuda
+            var result = MessageBox.Show(
+                "¿Estás seguro de que quieres cerrar sesión?",
+                "Confirmar Cierre de Sesión",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Aquí puedes implementar la lógica de cierre de sesión
+                MessageBox.Show("Sesión cerrada exitosamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

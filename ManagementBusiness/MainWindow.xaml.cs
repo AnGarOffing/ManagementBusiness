@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ManagementBusiness.ViewModels;
 
 namespace ManagementBusiness
 {
@@ -10,6 +11,7 @@ namespace ManagementBusiness
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

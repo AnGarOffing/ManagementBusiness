@@ -4,166 +4,248 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManagementBusiness"
-        xmlns:viewmodels="clr-namespace:ManagementBusiness.ViewModels"
         xmlns:converters="clr-namespace:ManagementBusiness.Converters"
+        xmlns:views="clr-namespace:ManagementBusiness.Views"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="600" Width="1000"
-        WindowStartupLocation="CenterScreen">
-    
-    <Window.DataContext>
-        <viewmodels:MainViewModel/>
-    </Window.DataContext>
+        Title="Management Business Dashboard" 
+        Height="900" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource PrimaryBackground}"
+        ResizeMode="CanResize"
+        MinHeight="700" MinWidth="1000">
     
     <Window.Resources>
-        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="#2E86AB"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
-        </Style>
+        <!-- Convertidor para colores -->
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
         
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Padding" Value="15,8"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#2E86AB"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1B4F72"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        
-        <Style x:Key="StatusBarStyle" TargetType="TextBlock">
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Background" Value="#F8F9FA"/>
-        </Style>
+        <!-- Iconos vectoriales -->
+        <Geometry x:Key="HomeIcon">M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6</Geometry>
+        <Geometry x:Key="CustomerIcon">M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z</Geometry>
+        <Geometry x:Key="ProductsIcon">M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4</Geometry>
+        <Geometry x:Key="OrdersIcon">M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2</Geometry>
+        <Geometry x:Key="TransactionsIcon">M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1</Geometry>
+        <Geometry x:Key="ShipmentsIcon">M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 00-1-1H2m8 1a1 1 0 011 1v6a1 1 0 01-1 1z</Geometry>
+        <Geometry x:Key="SettingsIcon">M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z</Geometry>
+        <Geometry x:Key="LogoutIcon">M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1</Geometry>
     </Window.Resources>
-    
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <!-- Header -->
-        <Border Grid.Row="0" Background="#F8F9FA" Padding="20">
+        <!-- Sidebar -->
+        <Border Width="280" 
+                Background="{StaticResource SidebarBackground}" 
+                HorizontalAlignment="Left">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0" Text="Sistema de Gestión Empresarial" 
-                           Style="{StaticResource HeaderTextStyle}"/>
-                
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Actualizar" Command="{Binding RefreshCommand}" 
-                            Style="{StaticResource ButtonStyle}"/>
-                    <Button Content="Configuración" Command="{Binding SettingsCommand}" 
-                            Style="{StaticResource ButtonStyle}"/>
-                    <Button Content="Ayuda" Command="{Binding HelpCommand}" 
-                            Style="{StaticResource ButtonStyle}"/>
-                </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header del Sidebar -->
+                <Border Grid.Row="0" 
+                        Background="{StaticResource AccentColor}" 
+                        Height="80" 
+                        CornerRadius="0,0,20,0">
+                    <StackPanel Orientation="Horizontal" 
+                                VerticalAlignment="Center" 
+                                Margin="20,0">
+                        <TextBlock Text="MB" 
+                                   FontSize="24" 
+                                   FontWeight="Bold" 
+                                   Foreground="White"/>
+                        <TextBlock Text="Dashboard" 
+                                   FontSize="16" 
+                                   Foreground="White" 
+                                   Margin="10,0,0,0" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Menú de Navegación -->
+                <ScrollViewer Grid.Row="1" 
+                              VerticalScrollBarVisibility="Auto" 
+                              Margin="15,20,15,20">
+                    <StackPanel>
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Home"
+                                Tag="Home">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource HomeIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Home}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Inicio" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Customers"
+                                Tag="Customers">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource CustomerIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Customers}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Clientes" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Products"
+                                Tag="Products">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource ProductsIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Products}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Productos" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Orders"
+                                Tag="Orders">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource OrdersIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Orders}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Pedidos" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Transactions"
+                                Tag="Transactions">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource TransactionsIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Transactions}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Transacciones" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Shipments"
+                                Tag="Shipments">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource ShipmentsIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Shipments}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Envíos" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource NavigationButtonStyle}"
+                                Command="{Binding NavigateCommand}" 
+                                CommandParameter="Settings"
+                                Tag="Settings">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource SettingsIcon}" 
+                                      Fill="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource BoolToColorConverter}, ConverterParameter=Settings}"
+                                      Width="20" Height="20" 
+                                      Stretch="Uniform"/>
+                                <TextBlock Text="Configuración" 
+                                           Margin="15,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Footer del Sidebar -->
+                <Border Grid.Row="2" 
+                        Background="{StaticResource BorderColor}" 
+                        Height="1" 
+                        Margin="15,0"/>
+                <Button Grid.Row="2" 
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Command="{Binding LogoutCommand}"
+                        Margin="15,10,15,15">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource LogoutIcon}" 
+                              Fill="{StaticResource TextSecondary}" 
+                              Width="18" Height="18" 
+                              Stretch="Uniform"/>
+                        <TextBlock Text="Cerrar Sesión" 
+                                   Margin="15,0,0,0" 
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextSecondary}"/>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Border>
-        
-        <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="300"/>
-            </Grid.ColumnDefinitions>
-            
-            <!-- Business List -->
-            <Border Grid.Column="0" Background="White" CornerRadius="8" 
-                    BorderBrush="#DEE2E6" BorderThickness="1" Margin="0,0,10,0">
+
+        <!-- Contenido Principal -->
+        <Grid Margin="280,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Principal -->
+            <Border Grid.Row="0" 
+                    Background="{StaticResource SecondaryBackground}" 
+                    Height="80" 
+                    CornerRadius="0,0,0,20">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Row="0" Text="Lista de Negocios" 
-                               Style="{StaticResource HeaderTextStyle}" Margin="20,20,20,10"/>
-                    
-                    <DataGrid Grid.Row="1" Margin="20,0,20,20"
-                              ItemsSource="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=Businesses}"
-                              SelectedItem="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=SelectedBusiness}"
-                              AutoGenerateColumns="False" CanUserAddRows="False"
-                              GridLinesVisibility="Horizontal" HeadersVisibility="Column"
-                              AlternatingRowBackground="#F8F9FA">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Descripción" Binding="{Binding Description}" Width="*"/>
-                            <DataGridTextColumn Header="Ingresos" Binding="{Binding Revenue, StringFormat=C}" Width="120"/>
-                            <DataGridTextColumn Header="Fecha" Binding="{Binding CreatedDate, StringFormat=d}" Width="100"/>
-                            <DataGridCheckBoxColumn Header="Activo" Binding="{Binding IsActive}" Width="80"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" 
+                                VerticalAlignment="Center" 
+                                Margin="30,0">
+                        <TextBlock Text="{Binding CurrentPageTitle}" 
+                                   Style="{StaticResource SectionTitleStyle}" 
+                                   Margin="0"/>
+                        <TextBlock Text="{Binding CurrentPageSubtitle}" 
+                                   Style="{StaticResource SubtitleStyle}" 
+                                   Margin="0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" 
+                                Orientation="Horizontal" 
+                                VerticalAlignment="Center" 
+                                Margin="0,0,30,0">
+                        <TextBlock Text="Bienvenido," 
+                                   Foreground="{StaticResource TextSecondary}" 
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Usuario" 
+                                   FontWeight="SemiBold" 
+                                   Margin="5,0,0,0" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
             </Border>
-            
-            <!-- Business Management Panel -->
-            <Border Grid.Column="1" Background="White" CornerRadius="8" 
-                    BorderBrush="#DEE2E6" BorderThickness="1" Margin="10,0,0,0">
-                <Grid Margin="20">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Grid.Row="0" Text="Gestión de Negocios" 
-                               Style="{StaticResource HeaderTextStyle}" Margin="0,0,0,20"/>
-                    
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
-                        <Button Content="Agregar" 
-                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=AddBusinessCommand}"
-                                Style="{StaticResource ButtonStyle}"/>
-                        <Button Content="Editar" 
-                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=EditBusinessCommand}"
-                                Style="{StaticResource ButtonStyle}"/>
-                        <Button Content="Eliminar" 
-                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=DeleteBusinessCommand}"
-                                Style="{StaticResource ButtonStyle}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Grid.Row="2" Margin="0,0,0,20">
-                        <TextBlock Text="Buscar:" Margin="0,0,0,5" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
-                                 Padding="10,8" BorderBrush="#DEE2E6" BorderThickness="1"/>
-                    </StackPanel>
-                    
-                    <Border Grid.Row="3" Background="#F8F9FA" CornerRadius="4" Padding="15">
-                        <TextBlock Text="Selecciona un negocio de la lista para ver sus detalles y realizar operaciones de gestión."
-                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Foreground="#6C757D" FontStyle="Italic"/>
-                    </Border>
-                </Grid>
-            </Border>
+
+            <!-- Área de Contenido -->
+            <ScrollViewer Grid.Row="1" 
+                          VerticalScrollBarVisibility="Auto" 
+                          Margin="30,20,30,30">
+                <ContentControl Content="{Binding CurrentView}"/>
+            </ScrollViewer>
         </Grid>
-        
-        <!-- Status Bar -->
-        <Border Grid.Row="2" Background="#F8F9FA" BorderBrush="#DEE2E6" BorderThickness="0,1,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" 
-                           Style="{StaticResource StatusBarStyle}"/>
-                
-                <ProgressBar Grid.Column="1" IsIndeterminate="{Binding IsBusy}" 
-                             Width="100" Height="20" Margin="10" 
-                             Visibility="{Binding IsBusy, Converter={x:Static converters:BooleanToVisibilityConverter.Instance}}"/>
-            </Grid>
-        </Border>
     </Grid>
 </Window>
