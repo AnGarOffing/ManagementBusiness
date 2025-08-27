@@ -1,0 +1,101 @@
+# Configuración de reglas para proyectos WPF en Cursor AI
+# Coloque este archivo en el directorio raíz de su proyecto [[1]]
+
+rules:
+  # Arquitectura y patrones fundamentales
+  - id: wpf-architecture-mvvm
+    description: "Enforce MVVM as the primary architecture pattern for WPF applications"
+    message: "WPF projects should follow the MVVM pattern to separate UI logic from business logic. Avoid placing business logic in code-behind files."
+    severity: error
+    applies_to: "*.xaml.cs, *.cs"
+    condition: |
+      file.path.endsWith(".xaml.cs") && 
+      !file.content.contains("INotifyPropertyChanged") &&
+      !file.path.endsWith("ViewModel.cs")
+    fix_suggestion: |
+      Consider moving this logic to a ViewModel class that implements INotifyPropertyChanged.
+      The View should only contain UI-related code with minimal logic. [[7]]
+
+  # Prácticas de enlace de datos
+  - id: wpf-data-binding-best-practices
+    description: "Enforce proper data binding patterns in WPF"
+    message: "Use proper data binding techniques with INotifyPropertyChanged and avoid direct element references."
+    severity: warning
+    applies_to: "*.xaml"
+    condition: |
+      file.content.contains("ElementName=") || 
+      file.content.contains("FindAncestor=") ||
+      !file.content.contains("Binding")
+    fix_suggestion: |
+      1. Prefer binding through ViewModel properties instead of ElementName references
+      2. Always implement INotifyPropertyChanged for bound properties
+      3. Consider using a Facade pattern for complex models [[9]]
+
+  # Estilos y recursos
+  - id: wpf-resource-dictionaries
+    description: "Enforce use of resource dictionaries for styles"
+    message: "Define styles and templates in resource dictionaries rather than inline."
+    severity: warning
+    applies_to: "*.xaml"
+    condition: |
+      file.content.contains("Style x:Key") && 
+      !file.path.endsWith("ResourceDictionary.xaml") &&
+      !file.content.contains("ResourceDictionary")
+    fix_suggestion: |
+      Move reusable styles to dedicated ResourceDictionary files to improve maintainability and consistency across the application. [[5]]
+
+  # Manejo de propiedades de dependencia
+  - id: wpf-dependency-properties
+    description: "Proper implementation of dependency properties"
+    message: "Custom controls should implement dependency properties correctly."
+    severity: error
+    applies_to: "*.cs"
+    condition: |
+      file.content.contains("public class") && 
+      file.content.contains("DependencyProperty.Register") &&
+      !file.content.contains("PropertyChangedCallback")
+    fix_suggestion: |
+      Always include PropertyChangedCallback when registering dependency properties to handle property changes appropriately.
+
+  # Validación de datos
+  - id: wpf-data-validation
+    description: "Enforce proper data validation patterns"
+    message: "Implement proper validation for bound data properties."
+    severity: warning
+    applies_to: "*.xaml, *.cs"
+    condition: |
+      file.content.contains("Binding") && 
+      !file.content.contains("ValidatesOnExceptions") &&
+      !file.content.contains(" IDataErrorInfo") &&
+      !file.content.contains("INotifyDataErrorInfo")
+    fix_suggestion: |
+      Implement data validation using IDataErrorInfo or INotifyDataErrorInfo interfaces for proper user feedback on invalid inputs. [[6]]
+
+  # Conversores
+  - id: wpf-converters
+    description: "Use value converters appropriately"
+    message: "Create reusable value converters instead of inline conversion logic."
+    severity: info
+    applies_to: "*.xaml.cs"
+    condition: |
+      file.content.contains("if (") && 
+      file.content.contains("return ") &&
+      file.content.contains("Binding")
+    fix_suggestion: |
+      Move value conversion logic to dedicated IValueConverter implementations for better reusability and testability. [[5]]
+
+  # Actualizaciones eficientes
+  - id: wpf-efficient-updates
+    description: "Avoid unnecessary UI updates"
+    message: "Update UI elements only when necessary to improve performance."
+    severity: warning
+    applies_to: "*.xaml.cs"
+    condition: |
+      file.content.contains("InvalidateVisual()") || 
+      file.content.contains("UpdateLayout()")
+    fix_suggestion: |
+      Only trigger UI updates when property values actually change, not on every possible change event. [[5]]
+
+# Mejores prácticas generales para reglas
+# Mantenga las reglas concisas (menos de 500 líneas) y bien enfocadas [[2]]
+# Divida reglas grandes en múltiples reglas componibles para mayor claridad [[3]]

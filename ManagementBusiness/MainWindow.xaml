@@ -1,0 +1,169 @@
+﻿<Window x:Class="ManagementBusiness.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManagementBusiness"
+        xmlns:viewmodels="clr-namespace:ManagementBusiness.ViewModels"
+        xmlns:converters="clr-namespace:ManagementBusiness.Converters"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2E86AB"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#2E86AB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1B4F72"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="StatusBarStyle" TargetType="TextBlock">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#F8F9FA" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Sistema de Gestión Empresarial" 
+                           Style="{StaticResource HeaderTextStyle}"/>
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="Actualizar" Command="{Binding RefreshCommand}" 
+                            Style="{StaticResource ButtonStyle}"/>
+                    <Button Content="Configuración" Command="{Binding SettingsCommand}" 
+                            Style="{StaticResource ButtonStyle}"/>
+                    <Button Content="Ayuda" Command="{Binding HelpCommand}" 
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Business List -->
+            <Border Grid.Column="0" Background="White" CornerRadius="8" 
+                    BorderBrush="#DEE2E6" BorderThickness="1" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Lista de Negocios" 
+                               Style="{StaticResource HeaderTextStyle}" Margin="20,20,20,10"/>
+                    
+                    <DataGrid Grid.Row="1" Margin="20,0,20,20"
+                              ItemsSource="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=Businesses}"
+                              SelectedItem="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=SelectedBusiness}"
+                              AutoGenerateColumns="False" CanUserAddRows="False"
+                              GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                              AlternatingRowBackground="#F8F9FA">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Descripción" Binding="{Binding Description}" Width="*"/>
+                            <DataGridTextColumn Header="Ingresos" Binding="{Binding Revenue, StringFormat=C}" Width="120"/>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding CreatedDate, StringFormat=d}" Width="100"/>
+                            <DataGridCheckBoxColumn Header="Activo" Binding="{Binding IsActive}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+            
+            <!-- Business Management Panel -->
+            <Border Grid.Column="1" Background="White" CornerRadius="8" 
+                    BorderBrush="#DEE2E6" BorderThickness="1" Margin="10,0,0,0">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Gestión de Negocios" 
+                               Style="{StaticResource HeaderTextStyle}" Margin="0,0,0,20"/>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+                        <Button Content="Agregar" 
+                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=AddBusinessCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                        <Button Content="Editar" 
+                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=EditBusinessCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                        <Button Content="Eliminar" 
+                                Command="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=DeleteBusinessCommand}"
+                                Style="{StaticResource ButtonStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" Margin="0,0,0,20">
+                        <TextBlock Text="Buscar:" Margin="0,0,0,5" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding Source={x:Static viewmodels:BusinessViewModel.Instance}, Path=SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                 Padding="10,8" BorderBrush="#DEE2E6" BorderThickness="1"/>
+                    </StackPanel>
+                    
+                    <Border Grid.Row="3" Background="#F8F9FA" CornerRadius="4" Padding="15">
+                        <TextBlock Text="Selecciona un negocio de la lista para ver sus detalles y realizar operaciones de gestión."
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Foreground="#6C757D" FontStyle="Italic"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#F8F9FA" BorderBrush="#DEE2E6" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" 
+                           Style="{StaticResource StatusBarStyle}"/>
+                
+                <ProgressBar Grid.Column="1" IsIndeterminate="{Binding IsBusy}" 
+                             Width="100" Height="20" Margin="10" 
+                             Visibility="{Binding IsBusy, Converter={x:Static converters:BooleanToVisibilityConverter.Instance}}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
