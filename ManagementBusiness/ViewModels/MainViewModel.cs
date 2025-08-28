@@ -89,6 +89,26 @@ namespace ManagementBusiness.ViewModels
                     CurrentPageTitle = "Gestión de Envíos";
                     CurrentPageSubtitle = "Control de logística y entregas";
                     break;
+                case "Invoices":
+                    CurrentView = new InvoicesView();
+                    CurrentPageTitle = "Gestión de Facturas";
+                    CurrentPageSubtitle = "Administra las facturas de tu negocio";
+                    break;
+                case "Sales":
+                    CurrentView = new SalesView();
+                    CurrentPageTitle = "Gestión de Ventas";
+                    CurrentPageSubtitle = "Control y análisis de ventas";
+                    break;
+                case "Suppliers":
+                    CurrentView = new SuppliersView();
+                    CurrentPageTitle = "Gestión de Proveedores";
+                    CurrentPageSubtitle = "Administra tus proveedores y compras";
+                    break;
+                case "Services":
+                    CurrentView = new ServicesView();
+                    CurrentPageTitle = "Gestión de Servicios";
+                    CurrentPageSubtitle = "Control de servicios ofrecidos";
+                    break;
                 case "Settings":
                     CurrentView = new SettingsView();
                     CurrentPageTitle = "Configuración";

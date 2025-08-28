@@ -23,30 +23,30 @@
                             Width="150" 
                             Height="40">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📋" FontSize="16" Margin="0,0,10,0"/>
-                            <TextBlock Text="Nuevo Pedido"/>
-                        </StackPanel>
-                    </Button>
-                    
-                    <Button Style="{StaticResource NavigationButtonStyle}" 
-                            Width="150" 
-                            Height="40" 
-                            Margin="15,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📊" FontSize="16" Margin="0,0,10,0"/>
-                            <TextBlock Text="Estado Pedidos"/>
-                        </StackPanel>
-                    </Button>
-                    
-                    <Button Style="{StaticResource NavigationButtonStyle}" 
-                            Width="150" 
-                            Height="40" 
-                            Margin="15,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📈" FontSize="16" Margin="0,0,10,0"/>
-                            <TextBlock Text="Historial"/>
-                        </StackPanel>
-                    </Button>
+                                                    <TextBlock Text="📋" FontSize="18" Margin="0,0,10,0"/>
+                        <TextBlock Text="Nuevo Pedido"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{StaticResource NavigationButtonStyle}" 
+                        Width="150" 
+                        Height="40" 
+                        Margin="15,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📊" FontSize="18" Margin="0,0,10,0"/>
+                        <TextBlock Text="Estado Pedidos"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{StaticResource NavigationButtonStyle}" 
+                        Width="150" 
+                        Height="40" 
+                        Margin="15,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📈" FontSize="18" Margin="0,0,10,0"/>
+                        <TextBlock Text="Historial"/>
+                    </StackPanel>
+                </Button>
                 </StackPanel>
                 
                 <TextBlock Text="Funcionalidad en desarrollo..." 

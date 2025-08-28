@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/GlobalStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         <!-- Colores del tema -->
         <SolidColorBrush x:Key="PrimaryBackground" Color="#0F0F23"/>
         <SolidColorBrush x:Key="SecondaryBackground" Color="#1A1A2E"/>
@@ -15,11 +19,16 @@
         <SolidColorBrush x:Key="SuccessColor" Color="#10B981"/>
         <SolidColorBrush x:Key="WarningColor" Color="#F59E0B"/>
         <SolidColorBrush x:Key="ErrorColor" Color="#EF4444"/>
+        <SolidColorBrush x:Key="InfoColor" Color="#3B82F6"/>
+
+        <!-- Recursos de imágenes -->
+        <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/Resources/Images/Logo.png"/>
 
         <!-- Estilos globales -->
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
         </Style>
 
         <Style TargetType="Button">
@@ -27,7 +36,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -55,43 +64,6 @@
             </Setter>
         </Style>
 
-        <!-- Estilo para botones de navegación -->
-        <Style x:Key="NavigationButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="0,2,0,2"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="8"
-                                BorderThickness="0">
-                            <Grid>
-                                <Border x:Name="SelectionIndicator" 
-                                        Background="{StaticResource AccentColor}" 
-                                        Width="4" 
-                                        HorizontalAlignment="Left"
-                                        Opacity="0"/>
-                                <ContentPresenter HorizontalAlignment="Left" 
-                                                VerticalAlignment="Center"
-                                                Margin="20,0,0,0"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource AccentColor}"/>
-                                <Setter Property="Background" Value="#1E293B"/>
-                            </Trigger>
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter TargetName="SelectionIndicator" Property="Opacity" Value="1"/>
-                                <Setter Property="Background" Value="#1E293B"/>
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <!-- Estilo para tarjetas -->
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource SecondaryBackground}"/>
@@ -112,7 +84,7 @@
 
         <!-- Estilo para títulos de sección -->
         <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="Margin" Value="0,0,0,20"/>
@@ -120,9 +92,49 @@
 
         <!-- Estilo para subtítulos -->
         <Style x:Key="SubtitleStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
             <Setter Property="Margin" Value="0,0,0,30"/>
         </Style>
+        
+        <!-- Estilos para TextBlock dentro de tarjetas de estadísticas -->
+        <Style x:Key="StatsCardTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+        </Style>
+        
+        <Style x:Key="StatsCardNumberStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="38"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+        
+        <Style x:Key="StatsCardPercentageStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+        <Style x:Key="StatsCardIconStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- Estilos que heredan de estilos base -->
+        <Style x:Key="LargeStatsCardTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource StatsCardTitleStyle}">
+            <Setter Property="FontSize" Value="26"/>
+        </Style>
+        
+        <Style x:Key="LargeStatsCardNumberStyle" TargetType="TextBlock" BasedOn="{StaticResource StatsCardNumberStyle}">
+            <Setter Property="FontSize" Value="42"/>
+        </Style>
+        
+        <Style x:Key="LargeStatsCardPercentageStyle" TargetType="TextBlock" BasedOn="{StaticResource StatsCardPercentageStyle}">
+            <Setter Property="FontSize" Value="22"/>
+        </Style>
+        
+        <Style x:Key="LargeStatsCardIconStyle" TargetType="TextBlock" BasedOn="{StaticResource StatsCardIconStyle}">
+            <Setter Property="FontSize" Value="28"/>
+        </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
