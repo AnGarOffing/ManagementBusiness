@@ -90,22 +90,22 @@ namespace ManagementBusiness.ViewModels
                     CurrentPageSubtitle = "Control de logística y entregas";
                     break;
                 case "Invoices":
-                    CurrentView = new InvoicesView();
+                    CurrentView = new HomeView(); // Temporalmente redirigir a Home
                     CurrentPageTitle = "Gestión de Facturas";
                     CurrentPageSubtitle = "Administra las facturas de tu negocio";
                     break;
                 case "Sales":
-                    CurrentView = new SalesView();
+                    CurrentView = new HomeView(); // Temporalmente redirigir a Home
                     CurrentPageTitle = "Gestión de Ventas";
                     CurrentPageSubtitle = "Control y análisis de ventas";
                     break;
                 case "Suppliers":
-                    CurrentView = new SuppliersView();
+                    CurrentView = new HomeView(); // Temporalmente redirigir a Home
                     CurrentPageTitle = "Gestión de Proveedores";
                     CurrentPageSubtitle = "Administra tus proveedores y compras";
                     break;
                 case "Services":
-                    CurrentView = new ServicesView();
+                    CurrentView = new HomeView(); // Temporalmente redirigir a Home
                     CurrentPageTitle = "Gestión de Servicios";
                     CurrentPageSubtitle = "Control de servicios ofrecidos";
                     break;

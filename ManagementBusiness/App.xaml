@@ -4,9 +4,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/GlobalStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
         <!-- Colores del tema -->
         <SolidColorBrush x:Key="PrimaryBackground" Color="#0F0F23"/>
         <SolidColorBrush x:Key="SecondaryBackground" Color="#1A1A2E"/>
@@ -21,8 +18,7 @@
         <SolidColorBrush x:Key="ErrorColor" Color="#EF4444"/>
         <SolidColorBrush x:Key="InfoColor" Color="#3B82F6"/>
 
-        <!-- Recursos de imágenes -->
-        <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/Resources/Images/Logo.png"/>
+
 
         <!-- Estilos globales -->
         <Style TargetType="TextBlock">
@@ -134,6 +130,42 @@
         
         <Style x:Key="LargeStatsCardIconStyle" TargetType="TextBlock" BasedOn="{StaticResource StatsCardIconStyle}">
             <Setter Property="FontSize" Value="28"/>
+        </Style>
+        
+        <!-- Estilo para botones de navegación del sidebar -->
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center"
+                                            Margin="20,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentHoverColor}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         </ResourceDictionary>
     </Application.Resources>
