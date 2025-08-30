@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|d:\\projects of develop\\visual studio\\visual studio projects\\managementbusiness\\managementbusiness\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|solutionrelative:managementbusiness\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|d:\\projects of develop\\visual studio\\visual studio projects\\managementbusiness\\managementbusiness\\views\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|solutionrelative:managementbusiness\\views\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|d:\\projects of develop\\visual studio\\visual studio projects\\managementbusiness\\managementbusiness\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{28322AA6-1D5F-4471-BD93-FEAE64C0EFE6}|ManagementBusiness\\ManagementBusiness.csproj|solutionrelative:managementbusiness\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,12 +31,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\App.xaml",
+              "RelativeDocumentMoniker": "ManagementBusiness\\App.xaml",
+              "ToolTip": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\App.xaml",
+              "RelativeToolTip": "ManagementBusiness\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-30T16:47:31.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeView.xaml",
+              "DocumentMoniker": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\Views\\HomeView.xaml",
+              "RelativeDocumentMoniker": "ManagementBusiness\\Views\\HomeView.xaml",
+              "ToolTip": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\Views\\HomeView.xaml",
+              "RelativeToolTip": "ManagementBusiness\\Views\\HomeView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-30T16:45:17.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MainViewModel.cs",
               "DocumentMoniker": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\ViewModels\\MainViewModel.cs",
               "RelativeDocumentMoniker": "ManagementBusiness\\ViewModels\\MainViewModel.cs",
               "ToolTip": "D:\\Projects of Develop\\Visual Studio\\VISUAL STUDIO PROJECTS\\ManagementBusiness\\ManagementBusiness\\ViewModels\\MainViewModel.cs",
               "RelativeToolTip": "ManagementBusiness\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAiwCgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvyIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-27T01:18:05.79Z",
               "EditorCaption": ""

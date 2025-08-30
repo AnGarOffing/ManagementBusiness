@@ -32,16 +32,14 @@
                            Foreground="{StaticResource TextSecondary}"/>
             </StackPanel>
 
-            <Border Grid.Column="1"
-                    Background="{StaticResource AccentColor}"
-                    Width="120"
-                    Height="120"
-                    CornerRadius="60">
-                <TextBlock Text="🏢"
-                           FontSize="60"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-            </Border>
+            <Image Grid.Column="1"
+                   Source="pack://application:,,,/Resources/Images/Logo.png"
+                   Width="140"
+                   Height="140"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Stretch="Uniform"
+                   Margin="0,0,0,0"/>
         </Grid>
 
         <!-- Tarjetas de Estadísticas -->
@@ -216,55 +214,135 @@
                 </StackPanel>
             </Border>
 
-            <!-- Panel de Acciones Rápidas -->
-            <Border Grid.Column="1" 
-                    Style="{StaticResource CardStyle}">
-                <StackPanel>
-                    <TextBlock Text="Acciones Rápidas" 
-                               Style="{StaticResource SectionTitleStyle}" 
-                               Margin="0,0,0,20"/>
-                    
-                    <Button Style="{StaticResource NavigationButtonStyle}" 
-                            Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                            CommandParameter="Customers"
-                            Margin="0,0,0,10">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="➕" FontSize="19" Margin="0,0,10,0"/>
-                            <TextBlock Text="Nuevo Cliente" FontSize="17"/>
-                        </StackPanel>
-                    </Button>
+                         <!-- Panel de Acciones Rápidas -->
+             <Border Grid.Column="1" 
+                     Style="{StaticResource CardStyle}">
+                 <StackPanel>
+                     <TextBlock Text="Acciones Rápidas" 
+                                Style="{StaticResource SectionTitleStyle}" 
+                                Margin="0,0,0,20"/>
+                     
+                     <!-- Grid de Acciones Rápidas Moderno -->
+                     <Grid>
+                         <Grid.RowDefinitions>
+                             <RowDefinition Height="Auto"/>
+                             <RowDefinition Height="Auto"/>
+                         </Grid.RowDefinitions>
+                         <Grid.ColumnDefinitions>
+                             <ColumnDefinition Width="*"/>
+                             <ColumnDefinition Width="*"/>
+                         </Grid.ColumnDefinitions>
 
-                <Button Style="{StaticResource NavigationButtonStyle}" 
-                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                        CommandParameter="Products"
-                        Margin="0,0,0,10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📦" FontSize="19" Margin="0,0,10,0"/>
-                        <TextBlock Text="Agregar Producto" FontSize="17"/>
-                    </StackPanel>
-                </Button>
+                         <!-- Nueva Acción: Cliente -->
+                         <Button Grid.Row="0" Grid.Column="0"
+                                 Style="{StaticResource QuickActionButtonStyle}"
+                                 Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 CommandParameter="Customers"
+                                 Margin="0,0,8,8">
+                             <Grid>
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto"/>
+                                     <RowDefinition/>
+                                 </Grid.RowDefinitions>
+                                 <TextBlock Text="👥" 
+                                            FontSize="48" 
+                                            Grid.Row="0" 
+                                            HorizontalAlignment="Center" 
+                                            Margin="20,20,20,15"/>
+                                 <TextBlock Grid.Row="1" 
+                                            Text="Nuevo Cliente" 
+                                            Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"
+                                            Margin="20,0,20,20"/>
+                             </Grid>
+                         </Button>
 
-                <Button Style="{StaticResource NavigationButtonStyle}" 
-                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                        CommandParameter="Orders"
-                        Margin="0,0,0,10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📋" FontSize="19" Margin="0,0,10,0"/>
-                        <TextBlock Text="Crear Pedido" FontSize="17"/>
-                    </StackPanel>
-                </Button>
+                         <!-- Nueva Acción: Producto -->
+                         <Button Grid.Row="0" Grid.Column="1"
+                                 Style="{StaticResource QuickActionButtonStyle}"
+                                 Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 CommandParameter="Products"
+                                 Margin="8,0,0,8">
+                             <Grid>
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto"/>
+                                     <RowDefinition/>
+                                 </Grid.RowDefinitions>
+                                 <TextBlock Text="📦" 
+                                            FontSize="48" 
+                                            Grid.Row="0" 
+                                            HorizontalAlignment="Center" 
+                                            Margin="20,20,20,15"/>
+                                 <TextBlock Grid.Row="1" 
+                                            Text="Agregar Producto" 
+                                            Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"
+                                            Margin="20,0,20,20"/>
+                             </Grid>
+                         </Button>
 
-                <Button Style="{StaticResource NavigationButtonStyle}" 
-                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                        CommandParameter="Transactions"
-                        Margin="0,0,0,10">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="💰" FontSize="19" Margin="0,0,10,0"/>
-                        <TextBlock Text="Registrar Venta" FontSize="17"/>
-                    </StackPanel>
-                </Button>
-                </StackPanel>
-            </Border>
+                         <!-- Nueva Acción: Pedido -->
+                         <Button Grid.Row="1" Grid.Column="0"
+                                 Style="{StaticResource QuickActionButtonStyle}"
+                                 Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 CommandParameter="Orders"
+                                 Margin="0,8,8,0">
+                             <Grid>
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto"/>
+                                     <RowDefinition/>
+                                 </Grid.RowDefinitions>
+                                 <TextBlock Text="📋" 
+                                            FontSize="48" 
+                                            Grid.Row="0" 
+                                            HorizontalAlignment="Center" 
+                                            Margin="20,20,20,15"/>
+                                 <TextBlock Grid.Row="1" 
+                                            Text="Crear Pedido" 
+                                            Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"
+                                            Margin="20,0,20,20"/>
+                             </Grid>
+                         </Button>
+
+                         <!-- Nueva Acción: Venta -->
+                         <Button Grid.Row="1" Grid.Column="1"
+                                 Style="{StaticResource QuickActionButtonStyle}"
+                                 Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                 CommandParameter="Transactions"
+                                 Margin="8,8,0,0">
+                             <Grid>
+                                 <Grid.RowDefinitions>
+                                     <RowDefinition Height="Auto"/>
+                                     <RowDefinition/>
+                                 </Grid.RowDefinitions>
+                                 <TextBlock Text="💰" 
+                                            FontSize="48" 
+                                            Grid.Row="0" 
+                                            HorizontalAlignment="Center" 
+                                            Margin="20,20,20,15"/>
+                                 <TextBlock Grid.Row="1" 
+                                            Text="Registrar Venta" 
+                                            Foreground="White" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="18"
+                                            FontWeight="SemiBold"
+                                            Margin="20,0,20,20"/>
+                             </Grid>
+                         </Button>
+                     </Grid>
+                 </StackPanel>
+             </Border>
         </Grid>
     </Grid>
 </UserControl>

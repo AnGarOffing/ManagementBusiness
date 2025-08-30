@@ -52,7 +52,7 @@ namespace ManagementBusiness.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/ManagementBusiness;component/views/settingsview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/ManagementBusiness;V1.0.0.0;component/views/settingsview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\SettingsView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

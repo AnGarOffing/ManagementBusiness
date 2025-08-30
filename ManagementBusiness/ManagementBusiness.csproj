@@ -16,4 +16,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Configuración de recursos de imágenes -->
+  <ItemGroup>
+    <Resource Include="Resources\Images\*.png" />
+    <Resource Include="Resources\Images\*.jpg" />
+    <Resource Include="Resources\Images\*.jpeg" />
+  </ItemGroup>
+
 </Project>
