@@ -1,0 +1,213 @@
+# ---------------------------------------------------------------------
+# Carpetas de compilación y salida
+# ---------------------------------------------------------------------
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+artifacts/
+publish/
+ClientBin/
+dist/
+out/
+
+# ---------------------------------------------------------------------
+# Archivos generados por el sistema o IDE
+# ---------------------------------------------------------------------
+*.cache
+*.log
+*.tmp
+*.temp
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pidb
+*.svclog
+*.scc
+*.vspscc
+*.vssscc
+*.rsp
+*.sbr
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.tlb
+*.tli
+*.tlh
+*.tmp_proj
+*_wpftmp.csproj
+*.build.csdef
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+*.dotCover
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+BenchmarkDotNet.Artifacts/
+OpenCover/
+ASALocalRun/
+
+# ---------------------------------------------------------------------
+# Carpetas de IDEs y herramientas
+# ---------------------------------------------------------------------
+# Visual Studio
+.vs/
+.vscode/
+*.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Rider
+*.sln.iml
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# NCrunch, ReSharper, TeamCity, etc.
+_TeamCity*
+.axoCover/*
+!.axoCover/settings.json
+.mfractor/
+.ionide/
+.cr/personal
+.localhistory/
+.history/
+
+# ---------------------------------------------------------------------
+# Paquetes y dependencias
+# ---------------------------------------------------------------------
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+node_modules/
+.paket/
+paket-files/
+tools/packages.config
+tools/**
+!tools/packages.config
+fake/
+.fake/
+
+# ---------------------------------------------------------------------
+# Archivos de prueba y análisis
+# ---------------------------------------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.e2e
+_Chutzpah*
+*.coverage
+*.coveragexml
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+ipch/
+*.aps
+$tf/
+
+# ---------------------------------------------------------------------
+# Proyectos específicos
+# ---------------------------------------------------------------------
+Generated\ Files/
+Generated_Code/
+_MigrationBackup/
+MigrationBackup/
+UpgradeLog*.XML
+UpgradeLog*.htm
+CConversionReport.txt
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+*.rptproj.rsuser
+FakesAssemblies/
+*.GhostDoc.xml
+.ntvs_analysis.dat
+*.plg
+*.opt
+*.vbw
+**/*.HTMLClient/GeneratedArtifacts
+**/*.DesktopClient/GeneratedArtifacts
+**/*.DesktopClient/ModelManifest.xml
+**/*.Server/GeneratedArtifacts
+**/*.Server/ModelManifest.xml
+_Pvt_Extensions
+*.mdf
+*.ldf
+*.ndf
+healthchecksdb
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.nvuser
+FodyWeavers.xsd
+
+# ---------------------------------------------------------------------
+# Configuración de entorno y desarrollo
+# ---------------------------------------------------------------------
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+
+# ---------------------------------------------------------------------
+# Archivos temporales del sistema
+# ---------------------------------------------------------------------
+~$*
+*~
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
