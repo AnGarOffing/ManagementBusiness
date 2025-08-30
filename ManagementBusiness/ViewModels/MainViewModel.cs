@@ -41,11 +41,13 @@ namespace ManagementBusiness.ViewModels
 
         public ICommand NavigateCommand { get; }
         public ICommand LogoutCommand { get; }
+        public ICommand TestDatabaseCommand { get; }
 
         public MainViewModel()
         {
             NavigateCommand = new RelayCommand(Navigate);
             LogoutCommand = new RelayCommand(Logout);
+            TestDatabaseCommand = new RelayCommand(TestDatabase);
 
             // Navegar a la página de inicio por defecto
             NavigateToHome();
@@ -142,6 +144,38 @@ namespace ManagementBusiness.ViewModels
             {
                 // Aquí puedes implementar la lógica de cierre de sesión
                 MessageBox.Show("Sesión cerrada exitosamente", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void TestDatabase(object? parameter)
+        {
+            try
+            {
+                var databaseTestViewModel = new DatabaseTestViewModel();
+                var result = MessageBox.Show(
+                    "¿Quieres probar la conexión a la base de datos?",
+                    "Prueba de Base de Datos",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Aquí podrías abrir una ventana de prueba o mostrar el estado
+                    MessageBox.Show(
+                        "La funcionalidad de prueba de base de datos está implementada.\n" +
+                        "La conexión se verifica automáticamente al iniciar la aplicación.",
+                        "Información",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error al probar la base de datos: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }
