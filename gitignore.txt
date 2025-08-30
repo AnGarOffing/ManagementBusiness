@@ -406,3 +406,14 @@ bin/
 *.user
 *.userosscache
 *.sln.docstates
+
+# IGNORE .vs FOLDER COMPLETELY (since it's in the same directory as .git)
+.vs/
+.vs/**
+.vs/**/*
+
+# IGNORE ALL .vsidx files specifically
+*.vsidx
+**/*.vsidx
+.vs/**/*.vsidx
+.vs/ManagementBusiness/FileContentIndex/*.vsidx
