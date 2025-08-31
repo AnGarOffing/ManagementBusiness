@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ManagementBusiness.Data;
 using ManagementBusiness.Services.Validation;
 using ManagementBusiness.Services.Helpers;
+using ManagementBusiness.ViewModels;
 
 namespace ManagementBusiness.Services
 {
@@ -60,6 +61,9 @@ namespace ManagementBusiness.Services
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<ClienteCRUDService>();
             services.AddScoped<ClienteCRUDTestService>();
+
+            // Configurar ViewModels
+            services.AddTransient<CustomersViewModel>();
 
             // Configurar helpers de formateo
             services.AddSingleton<IFormatHelper, FormatHelper>();
