@@ -44,6 +44,12 @@ namespace ManagementBusiness.Services
             services.AddScoped(typeof(IRepositoryWithAudit<>), typeof(RepositoryWithAudit<>));
             services.AddScoped(typeof(IRepositoryWithSoftDelete<>), typeof(RepositoryWithSoftDelete<>));
 
+            // Configurar Unit of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Configurar servicio de logging
+            services.AddSingleton<ILoggingService, LoggingService>();
+
             // Configurar servicios de navegación
             services.AddScoped<INavigationService, NavigationService>();
 

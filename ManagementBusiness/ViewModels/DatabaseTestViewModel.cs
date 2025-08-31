@@ -28,7 +28,7 @@ namespace ManagementBusiness.ViewModels
                 ConnectionStatus = $"Error al obtener servicio: {ex.Message}";
             }
 
-            TestConnectionCommand = new RelayCommand(async () => await TestConnectionAsync(), () => !IsTesting);
+            TestConnectionCommand = new RelayCommand(async (obj) => await TestConnectionAsync(), (obj) => !IsTesting);
         }
 
         #region Propiedades

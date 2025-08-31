@@ -67,22 +67,44 @@ namespace ManagementBusiness
                     throw new InvalidOperationException("La base de datos no existe. Verifica que se haya creado correctamente.");
                 }
 
-                // Aplicar migraciones pendientes
-                var migrationsApplied = await databaseService.ApplyMigrationsAsync();
-                if (!migrationsApplied)
+                // Aplicar migraciones pendientes (con manejo de errores)
+                try
                 {
-                    throw new InvalidOperationException("Error al aplicar las migraciones de Entity Framework.");
+                    var migrationsApplied = await databaseService.ApplyMigrationsAsync();
+                    if (!migrationsApplied)
+                    {
+                        // Solo mostrar advertencia, no fallar la aplicación
+                        #if DEBUG
+                        MessageBox.Show("Advertencia: No se pudieron aplicar las migraciones automáticamente.\n" +
+                                      "La aplicación continuará funcionando, pero algunas funcionalidades pueden no estar disponibles.",
+                                      "Advertencia de Migraciones",
+                                      MessageBoxButton.OK,
+                                      MessageBoxImage.Warning);
+                        #endif
+                    }
+                }
+                catch (Exception migrationEx)
+                {
+                    // Solo mostrar advertencia, no fallar la aplicación
+                    #if DEBUG
+                    MessageBox.Show($"Advertencia: Error al aplicar migraciones: {migrationEx.Message}\n" +
+                                  "La aplicación continuará funcionando, pero algunas funcionalidades pueden no estar disponibles.",
+                                  "Advertencia de Migraciones",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Warning);
+                    #endif
                 }
 
                 // Obtener estado de la base de datos
                 var status = await databaseService.GetDatabaseStatusAsync();
                 
-                // Mostrar información del estado (opcional, solo en desarrollo)
+                // Log del estado usando el servicio de logging
+                var loggingService = ServiceContainer.GetRequiredService<ILoggingService>();
+                loggingService.LogInformation($"Estado de la base de datos: {status}", "App");
+                
+                // Log del estado en consola de debug (sin ventanas emergentes)
                 #if DEBUG
-                MessageBox.Show($"Estado de la base de datos:\n{status}", 
-                    "Conexión Exitosa", 
-                    MessageBoxButton.OK, 
-                    MessageBoxImage.Information);
+                System.Diagnostics.Debug.WriteLine($"Estado de la base de datos:\n{status}");
                 #endif
             }
             catch (Exception ex)

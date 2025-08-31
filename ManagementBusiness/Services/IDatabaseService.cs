@@ -31,5 +31,17 @@ namespace ManagementBusiness.Services
         /// </summary>
         /// <returns>Información del estado de la base de datos</returns>
         Task<string> GetDatabaseStatusAsync();
+
+        /// <summary>
+        /// Fuerza la aplicación de migraciones (para desarrollo)
+        /// </summary>
+        /// <returns>True si las migraciones se ejecutaron correctamente</returns>
+        Task<bool> ForceApplyMigrationsAsync();
+
+        /// <summary>
+        /// Sincroniza EF con una base de datos existente (para desarrollo)
+        /// </summary>
+        /// <returns>True si la sincronización fue exitosa</returns>
+        Task<bool> SyncWithExistingDatabaseAsync();
     }
 }

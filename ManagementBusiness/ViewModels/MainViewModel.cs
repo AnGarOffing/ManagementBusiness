@@ -2,9 +2,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ManagementBusiness.Views;
+using ManagementBusiness.Services;
 
 namespace ManagementBusiness.ViewModels
 {
@@ -51,6 +53,9 @@ namespace ManagementBusiness.ViewModels
 
             // Navegar a la página de inicio por defecto
             NavigateToHome();
+            
+            // Ejecutar sincronización automática de migraciones
+            _ = Task.Run(async () => await SynchronizeDatabaseAsync());
         }
 
         private void Navigate(object? parameter)
@@ -176,6 +181,52 @@ namespace ManagementBusiness.ViewModels
                     "Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+            }
+        }
+
+                /// <summary>
+        /// Sincroniza la base de datos con Entity Framework automáticamente
+        /// </summary>
+        private async Task SynchronizeDatabaseAsync()
+        {
+            try
+            {
+                // Esperar un poco para que la aplicación se inicialice completamente
+                await Task.Delay(2000);
+                
+                var databaseService = ServiceContainer.GetRequiredService<IDatabaseService>();
+                var loggingService = ServiceContainer.GetRequiredService<ILoggingService>();
+                
+                loggingService.LogInformation("Iniciando sincronización automática de base de datos", "MainViewModel");
+                
+                // Primero intentar sincronizar con la base de datos existente
+                var syncSuccess = await databaseService.SyncWithExistingDatabaseAsync();
+                if (syncSuccess)
+                {
+                    loggingService.LogInformation("Base de datos sincronizada exitosamente", "MainViewModel");
+                    System.Diagnostics.Debug.WriteLine("✅ Base de datos sincronizada exitosamente");
+                }
+                else
+                {
+                    // Si la sincronización falla, intentar aplicar migraciones
+                    var migrationSuccess = await databaseService.ForceApplyMigrationsAsync();
+                    if (migrationSuccess)
+                    {
+                        loggingService.LogInformation("Migraciones aplicadas exitosamente", "MainViewModel");
+                        System.Diagnostics.Debug.WriteLine("✅ Migraciones aplicadas exitosamente");
+                    }
+                    else
+                    {
+                        loggingService.LogError("Error al sincronizar/aplicar migraciones", "MainViewModel");
+                        System.Diagnostics.Debug.WriteLine("❌ Error al sincronizar/aplicar migraciones");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var loggingService = ServiceContainer.GetRequiredService<ILoggingService>();
+                loggingService.LogError("Error en sincronización automática", ex, "MainViewModel");
+                System.Diagnostics.Debug.WriteLine($"Error en sincronización automática: {ex.Message}");
             }
         }
     }
