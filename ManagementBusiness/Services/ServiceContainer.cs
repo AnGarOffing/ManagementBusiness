@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ManagementBusiness.Data;
+using ManagementBusiness.Services.Validation;
+using ManagementBusiness.Services.Helpers;
 
 namespace ManagementBusiness.Services
 {
@@ -49,6 +51,13 @@ namespace ManagementBusiness.Services
 
             // Configurar servicio de logging
             services.AddSingleton<ILoggingService, LoggingService>();
+
+            // Configurar validadores
+            services.AddScoped<ClienteValidator>();
+            services.AddScoped<ProductoValidator>();
+
+            // Configurar helpers de formateo
+            services.AddSingleton<IFormatHelper, FormatHelper>();
 
             // Configurar servicios de navegación
             services.AddScoped<INavigationService, NavigationService>();
