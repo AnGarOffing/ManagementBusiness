@@ -56,6 +56,11 @@ namespace ManagementBusiness.Services
             services.AddScoped<ClienteValidator>();
             services.AddScoped<ProductoValidator>();
 
+            // Configurar servicios de negocio
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<ClienteCRUDService>();
+            services.AddScoped<ClienteCRUDTestService>();
+
             // Configurar helpers de formateo
             services.AddSingleton<IFormatHelper, FormatHelper>();
 
